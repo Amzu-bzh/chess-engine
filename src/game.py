@@ -10,7 +10,7 @@ Gmae class
 - orchestrates everything
 """
 class Game(Window):
-    def __init__(self, width: int=1280, height: int=720, *args, **kwargs):
+    def __init__(self, width: int=1024, height: int=1024, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.width = width
         self.height = height
@@ -22,7 +22,7 @@ class Game(Window):
     
     def on_draw(self):
         self.clear()
-        # self.board.draw()
+        self.board.draw()
     
     def run(self, frame_rate: int=60):
         clock.schedule_interval(self.update, 1/60)

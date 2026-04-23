@@ -1,7 +1,13 @@
 import numpy as np
 U64 = np.uint64
 
+from pyglet.shapes import Rectangle
+from pyglet.image import load
+from pyglet.sprite import Sprite
+
 from bitboard import Bitboard
+
+CASE_SIZE = 128
 
 """
 Board class
@@ -30,6 +36,7 @@ class Board:
         self.bK = U64(0)
 
         self.init_pieces()
+        self.init_sprites()
     
     def init_pieces(self):
         for i in range(0, 8):
@@ -68,3 +75,104 @@ class Board:
         if i == 4:
             self.wK = Bitboard.set_bit(self.wK, i)
             self.bK = Bitboard.set_bit(self.bK, 56+i)
+
+    def init_sprites(self):
+        i_wp = load("assets/white-pawn.png")
+        i_wk = load("assets/white-knight.png")
+        i_wb = load("assets/white-bishop.png")
+        i_wr = load("assets/white-rook.png")
+        i_wq = load("assets/white-queen.png")
+        i_wK = load("assets/white-king.png")
+        
+        self.s_wp = Sprite(i_wp)
+        self.s_wk = Sprite(i_wk)
+        self.s_wb = Sprite(i_wb)
+        self.s_wr = Sprite(i_wr)
+        self.s_wq = Sprite(i_wq)
+        self.s_wK = Sprite(i_wK)
+        
+        i_bp = load("assets/black-pawn.png")
+        i_bk = load("assets/black-knight.png")
+        i_bb = load("assets/black-bishop.png")
+        i_br = load("assets/black-rook.png")
+        i_bq = load("assets/black-queen.png")
+        i_bK = load("assets/black-king.png")
+        
+        self.s_bp = Sprite(i_bp)
+        self.s_bk = Sprite(i_bk)
+        self.s_bb = Sprite(i_bb)
+        self.s_br = Sprite(i_br)
+        self.s_bq = Sprite(i_bq)
+        self.s_bK = Sprite(i_bK)
+        
+    
+    def draw(self):
+        self.draw_grid()
+        self.draw_pieces()
+    
+    def draw_grid(self):
+        for i in range(0, 4):
+            for j in range(0, 8):
+                x = j%8
+                y = j//8 + i*2
+                if x%2 == 0:
+                    Rectangle(x*CASE_SIZE, (y*CASE_SIZE)+128, CASE_SIZE, CASE_SIZE, (255, 206, 158, 255)).draw()
+                    Rectangle(x*CASE_SIZE, (y*CASE_SIZE), CASE_SIZE, CASE_SIZE, (209, 139, 71, 255)).draw()
+                else:
+                    Rectangle(x*CASE_SIZE, (y*CASE_SIZE), CASE_SIZE, CASE_SIZE, (255, 206, 158, 255)).draw()
+                    Rectangle(x*CASE_SIZE, (y*CASE_SIZE)+128, CASE_SIZE, CASE_SIZE, (209, 139, 71, 255)).draw()
+    
+    def draw_pieces(self):
+        for i in range(0, 64):
+            x = CASE_SIZE * (i%8)
+            y = CASE_SIZE * (i//8)
+            
+            if Bitboard.get_bit(self.wp, i):
+                self.s_wp.x = x
+                self.s_wp.y = y
+                self.s_wp.draw()
+            if Bitboard.get_bit(self.wk, i):
+                self.s_wk.x = x
+                self.s_wk.y = y
+                self.s_wk.draw()
+            if Bitboard.get_bit(self.wb, i):
+                self.s_wb.x = x
+                self.s_wb.y = y
+                self.s_wb.draw()
+            if Bitboard.get_bit(self.wr, i):
+                self.s_wr.x = x
+                self.s_wr.y = y
+                self.s_wr.draw()
+            if Bitboard.get_bit(self.wq, i):
+                self.s_wq.x = x
+                self.s_wq.y = y
+                self.s_wq.draw()
+            if Bitboard.get_bit(self.wK, i):
+                self.s_wK.x = x
+                self.s_wK.y = y
+                self.s_wK.draw()
+            
+            if Bitboard.get_bit(self.bp, i):
+                self.s_bp.x = x
+                self.s_bp.y = y
+                self.s_bp.draw()
+            if Bitboard.get_bit(self.bk, i):
+                self.s_bk.x = x
+                self.s_bk.y = y
+                self.s_bk.draw()
+            if Bitboard.get_bit(self.bb, i):
+                self.s_bb.x = x
+                self.s_bb.y = y
+                self.s_bb.draw()
+            if Bitboard.get_bit(self.br, i):
+                self.s_br.x = x
+                self.s_br.y = y
+                self.s_br.draw()
+            if Bitboard.get_bit(self.bq, i):
+                self.s_bq.x = x
+                self.s_bq.y = y
+                self.s_bq.draw()
+            if Bitboard.get_bit(self.bK, i):
+                self.s_bK.x = x
+                self.s_bK.y = y
+                self.s_bK.draw()
