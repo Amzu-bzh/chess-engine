@@ -176,3 +176,14 @@ class Board:
                 self.s_bK.x = x
                 self.s_bK.y = y
                 self.s_bK.draw()
+    
+    def white_pieces_bb(self):
+        return self.wp | self.wk | self.wb | self.wr | self.wq | self.wK
+    
+    def black_pieces_bb(self):
+        return self.bp | self.bk | self.bb | self.br | self.bq | self.bK
+    
+    def is_piece(self, square: int):
+        pieces_bb = self.white_pieces_bb() | self.black_pieces_bb()
+        
+        return Bitboard.get_bit(pieces_bb, square)
