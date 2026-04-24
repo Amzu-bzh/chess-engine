@@ -182,8 +182,80 @@ class Board:
     
     def black_pieces_bb(self):
         return self.bp | self.bk | self.bb | self.br | self.bq | self.bK
+
+    def pieces(self):
+        return self.white_pieces_bb() | self.black_pieces_bb()
     
     def is_piece(self, square: int):
         pieces_bb = self.white_pieces_bb() | self.black_pieces_bb()
         
         return Bitboard.get_bit(pieces_bb, square)
+    
+    def move(self, start_square: int, end_square: int):
+        # White piece is captured
+        if Bitboard.get_bit(self.wp, end_square):
+            self.wp = Bitboard.clear_bit(self.wp, end_square)
+        elif Bitboard.get_bit(self.wk, end_square):
+            self.wk = Bitboard.clear_bit(self.wk, end_square)
+        elif Bitboard.get_bit(self.wb, end_square):
+            self.wb = Bitboard.clear_bit(self.wb, end_square)
+        elif Bitboard.get_bit(self.wr, end_square):
+            self.wr = Bitboard.clear_bit(self.wr, end_square)
+        elif Bitboard.get_bit(self.wq, end_square):
+            self.wq = Bitboard.clear_bit(self.wq, end_square)
+        elif Bitboard.get_bit(self.wK, end_square):
+            self.wK = Bitboard.clear_bit(self.wK, end_square)
+        
+        # White piece capture
+        if Bitboard.get_bit(self.wp, start_square):
+            self.wp = Bitboard.clear_bit(self.wp, start_square)
+            self.wp = Bitboard.set_bit(self.wp, end_square)
+        elif Bitboard.get_bit(self.wk, start_square):
+            self.wk = Bitboard.clear_bit(self.wk, start_square)
+            self.wk = Bitboard.set_bit(self.wk, end_square)
+        elif Bitboard.get_bit(self.wb, start_square):
+            self.wb = Bitboard.clear_bit(self.wb, start_square)
+            self.wb = Bitboard.set_bit(self.wb, end_square)
+        elif Bitboard.get_bit(self.wr, start_square):
+            self.wr = Bitboard.clear_bit(self.wr, start_square)
+            self.wr = Bitboard.set_bit(self.wr, end_square)
+        elif Bitboard.get_bit(self.wq, start_square):
+            self.wq = Bitboard.clear_bit(self.wq, start_square)
+            self.wq = Bitboard.set_bit(self.wq, end_square)
+        elif Bitboard.get_bit(self.wK, start_square):
+            self.wK = Bitboard.clear_bit(self.wK, start_square)
+            self.wK = Bitboard.set_bit(self.wK, end_square)
+        
+        # Black piece is captured
+        if Bitboard.get_bit(self.bp, end_square):
+            self.bp = Bitboard.clear_bit(self.bp, end_square)
+        elif Bitboard.get_bit(self.bk, end_square):
+            self.bk = Bitboard.clear_bit(self.bk, end_square)
+        elif Bitboard.get_bit(self.bb, end_square):
+            self.bb = Bitboard.clear_bit(self.bb, end_square)
+        elif Bitboard.get_bit(self.br, end_square):
+            self.br = Bitboard.clear_bit(self.br, end_square)
+        elif Bitboard.get_bit(self.bq, end_square):
+            self.bq = Bitboard.clear_bit(self.bq, end_square)
+        elif Bitboard.get_bit(self.bK, end_square):
+            self.bK = Bitboard.clear_bit(self.bK, end_square)
+        
+        # Black piece capture
+        if Bitboard.get_bit(self.bp, start_square):
+            self.bp = Bitboard.clear_bit(self.bp, start_square)
+            self.bp = Bitboard.set_bit(self.bp, end_square)
+        elif Bitboard.get_bit(self.bk, start_square):
+            self.bk = Bitboard.clear_bit(self.bk, start_square)
+            self.bk = Bitboard.set_bit(self.bk, end_square)
+        elif Bitboard.get_bit(self.bb, start_square):
+            self.bb = Bitboard.clear_bit(self.bb, start_square)
+            self.bb = Bitboard.set_bit(self.bb, end_square)
+        elif Bitboard.get_bit(self.br, start_square):
+            self.br = Bitboard.clear_bit(self.br, start_square)
+            self.br = Bitboard.set_bit(self.br, end_square)
+        elif Bitboard.get_bit(self.bq, start_square):
+            self.bq = Bitboard.clear_bit(self.bq, start_square)
+            self.bq = Bitboard.set_bit(self.bq, end_square)
+        elif Bitboard.get_bit(self.bK, start_square):
+            self.bK = Bitboard.clear_bit(self.bK, start_square)
+            self.bK = Bitboard.set_bit(self.bK, end_square)
