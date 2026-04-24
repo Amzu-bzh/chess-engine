@@ -52,7 +52,7 @@ class Board:
         self.bp = Bitboard.set_bit(self.bp, 48+i)
 
     def init_knights(self, i: int) -> None:
-        if i == 0 or i == 7:
+        if i == 2 or i == 5:
             self.wk = Bitboard.set_bit(self.wk, i)
             self.bk = Bitboard.set_bit(self.bk, 56+i)
     
@@ -62,7 +62,7 @@ class Board:
             self.bb = Bitboard.set_bit(self.bb, 56+i)
     
     def init_rooks(self, i: int) -> None:
-        if i == 2 or i == 5:
+        if i == 0 or i == 7:
             self.wr = Bitboard.set_bit(self.wr, i)
             self.br = Bitboard.set_bit(self.br, 56+i)
     
@@ -103,8 +103,7 @@ class Board:
         self.s_bb = Sprite(i_bb)
         self.s_br = Sprite(i_br)
         self.s_bq = Sprite(i_bq)
-        self.s_bK = Sprite(i_bK)
-        
+        self.s_bK = Sprite(i_bK)     
     
     def draw(self):
         self.draw_grid()
