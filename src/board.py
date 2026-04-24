@@ -258,3 +258,6 @@ class Board:
         elif Bitboard.get_bit(self.bK, start_square):
             self.bK = Bitboard.clear_bit(self.bK, start_square)
             self.bK = Bitboard.set_bit(self.bK, end_square)
+    
+    def get_state(self) -> list[list[U64]]:
+        return [[self.wp, self.wr, self.wb, self.wk, self.wq, self.wK], [self.bp, self.br, self.bb, self.bk, self.bq, self.bK], [self.black_pieces_bb(), self.white_pieces_bb()]]
