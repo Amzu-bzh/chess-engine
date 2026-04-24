@@ -12,7 +12,7 @@ class Bitboard:
     
     @staticmethod
     def clear_bit(bb: U64, square: int) -> U64:
-        return bb & ~(ZERO << U64(square))
+        return bb & U64(~(ONE << U64(square)))
     
     @staticmethod
     def get_bit(bb: U64, square: int) -> bool:
